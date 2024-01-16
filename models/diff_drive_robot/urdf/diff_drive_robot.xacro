@@ -3,8 +3,8 @@
 <robot name="robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
 
-  <xacro:include filename="$(find roscourse_2023_project_scene)/models/diff_drive_robot/urdf/diff_drive_robot.gazebo" />
-  <xacro:include filename="$(find roscourse_2023_project_scene)/models/diff_drive_robot/urdf/materials.xacro" />
+  <xacro:include filename="$(find project)/models/diff_drive_robot/urdf/diff_drive_robot.gazebo" />
+  <xacro:include filename="$(find project)/models/diff_drive_robot/urdf/materials.xacro" />
 
 
 
@@ -139,7 +139,7 @@
     </inertial>
   </link>
 
-  <link name='camera2'>
+  <!-- <link name='camera'>
     <visual name='camera_visual'>
       <origin xyz="0 0 0" rpy=" 0 0 0"/>
       <geometry>
@@ -149,6 +149,55 @@
     </visual>
   </link>
 
+  <link name='camera2'>
+    <visual name='camera_visual2'>
+      <origin xyz="0 0 0" rpy=" 0 0 0"/>
+      <geometry>
+        <box size=".05 .05 .05"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+  </link> -->
+
+  <!-- <link name='depth_camera'>
+    <visual name='depth_camera_visual'>
+      <origin xyz="0 0 0" rpy=" 0 0 0"/>
+      <geometry>
+        <box size=".05 .05 .05"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+  </link>
+
+  <link name='depth_camera2'>
+    <visual name='depth_camera_visual2'>
+      <origin xyz="0 0 0" rpy=" 0 0 0"/>
+      <geometry>
+        <box size=".05 .05 .05"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+  </link> -->
+
+  <link name='lidar'>
+    <visual name='lidar_visual'>
+      <origin xyz="0 0 0" rpy=" 0 0 0"/>
+      <geometry>
+        <box size=".05 .05 .05"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+  </link>
+
+  <!-- <link name='lidar2'>
+    <visual name='lidar2_visual'>
+      <origin xyz="0 0 0" rpy=" 0 0 0"/>
+      <geometry>
+        <box size=".05 .05 .05"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+  </link> -->
 
   <joint type="continuous" name="left_wheel_hinge">
     <origin xyz="0.05 0.226 -0.05" rpy="0 0 0"/>
@@ -159,6 +208,17 @@
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
 
+  <transmission name="left_wheel_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="left_wheel_hinge">
+         <hardwareInterface>EffortJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="left_wheel_motor">
+         <hardwareInterface>EffortJointInterface</hardwareInterface>
+         <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+  </transmission>
+
   <joint type="continuous" name="right_wheel_hinge">
     <origin xyz="0.05 -0.226 -0.05" rpy="0 0 0"/>
     <child link="right_wheel"/>
@@ -168,10 +228,51 @@
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
 
-  <joint type="fixed" name="camera_joint">
-    <origin xyz="0.3 0 0" rpy="0 0 0"/>
+  <transmission name="right_wheel_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="right_wheel_hinge">
+         <hardwareInterface>EffortJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="right_wheel_motor">
+         <hardwareInterface>EffortJointInterface</hardwareInterface>
+         <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+  </transmission>
+
+  <!-- <joint type="fixed" name="camera_joint">
+    <origin xyz="0.3 0.1 0" rpy="0 0 0"/>
+    <child link="camera"/>
+    <parent link="base"/>
+  </joint>
+
+  <joint type="fixed" name="depth_camera_joint">
+    <origin xyz="0.3 -0.1 0" rpy="0 0 0"/>
+    <child link="depth_camera"/>
+    <parent link="base"/>
+  </joint>
+
+  <joint type="fixed" name="camera_joint2">
+    <origin xyz="-0.3 0.1 0" rpy="0 0 ${pi}"/>
     <child link="camera2"/>
     <parent link="base"/>
   </joint>
+
+  <joint type="fixed" name="depth_camera_joint2">
+    <origin xyz="-0.3 -0.1 0" rpy="0 0 ${pi}"/>
+    <child link="depth_camera2"/>
+    <parent link="base"/>
+  </joint> -->
+
+  <joint type="fixed" name="lidar_joint">
+    <origin xyz="0.3 0.1 0" rpy="0 0 -${pi/2}"/>
+    <child link="lidar"/>
+    <parent link="base"/>
+  </joint>
+<!-- 
+  <joint type="fixed" name="lidar2_joint">
+    <origin xyz="0 -0.15 0.125" rpy="0 0 ${pi}"/>
+    <child link="lidar2"/>
+    <parent link="base"/>
+  </joint> -->
 
 </robot>

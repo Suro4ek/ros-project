@@ -12,7 +12,9 @@
     <param name="publish_frequency" type="double" value="40.0" />
   </node>
 
+  <rosparam file="$(find project)/config/diff_control.yaml" command="load"/>
 
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find project)/launch/robot_rviz_config.rviz" required="true"/>
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(find project)/worlds/simple_scene.world"/>
     <arg name="paused" value="false"/>
@@ -26,7 +28,9 @@
   <node name="diff_drive_robot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
    args="-urdf -param robot_description -model diff_drive_robot -x $(arg x) -y $(arg y) -z $(arg z)" respawn="false"/>
 
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/robot_control" args="left_wheel_joint right_wheel_joint joint_state_controller --timeout 60"/>
 
-
+  <node name="move_node" pkg="project" type="move.py" output="screen"/>
 
 </launch>
