@@ -49,9 +49,9 @@ class Robot():
         rospy.loginfo("%s", self.control_speed)
         if target_angle != 0:
             self.last_angle = target_angle
-        if current_angle == 0:
-            left_wheel_speed = -left_wheel_speed
-            right_wheel_speed = - right_wheel_speed
+        # if current_angle == 0:
+        #     left_wheel_speed = -left_wheel_speed
+        #     right_wheel_speed = - right_wheel_speed
         return left_wheel_speed, right_wheel_speed
 
     def find_largest_inf_gap(self, angles, values):
