@@ -5,7 +5,7 @@
   <!-- Robot pose -->
   <arg name="x" default="0"/>
   <arg name="y" default="0"/>
-  <arg name="z" default="-0.2"/>
+  <arg name="z" default="-0.96"/>
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" ></node>
 
   <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen" >
@@ -14,7 +14,7 @@
 
   <rosparam file="$(find project)/config/diff_control.yaml" command="load"/>
 
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find project)/launch/robot_rviz_config.rviz" required="true"/>
+  <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find project)/launch/robot_rviz_config.rviz" required="true"/> -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(find project)/worlds/simple_scene.world"/>
     <arg name="paused" value="false"/>
@@ -29,7 +29,7 @@
    args="-urdf -param robot_description -model diff_drive_robot -x $(arg x) -y $(arg y) -z $(arg z)" respawn="false"/>
 
   <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-    output="screen" ns="/robot_control" args="left_wheel_joint right_wheel_joint joint_state_controller --timeout 60"/>
+    output="screen" ns="robot_control" args="left_wheel_joint right_wheel_joint joint_state_controller --timeout 60"/>
 
   <node name="move_node" pkg="project" type="move.py" output="screen"/>
 
