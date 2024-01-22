@@ -9,8 +9,8 @@ import numpy as np
 class Robot():
     def __init__(self):
         front_lidar = message_filters.Subscriber('diff_drive_robot/laser/scan', LaserScan)
-        self.left_wheel_publisher = rospy.Publisher("robot_control/left_wheel_joint/command", Float64, queue_size=10)
-        self.right_wheel_publisher = rospy.Publisher("robot_control/right_wheel_joint/command", Float64, queue_size=10)
+        self.left_wheel_publisher = rospy.Publisher("left_wheel_joint/command", Float64, queue_size=10)
+        self.right_wheel_publisher = rospy.Publisher("right_wheel_joint/command", Float64, queue_size=10)
         ts = message_filters.ApproximateTimeSynchronizer([front_lidar], 10, 0.1)
         ts.registerCallback(self.lidar_callback)
         self.control_speed = 0
