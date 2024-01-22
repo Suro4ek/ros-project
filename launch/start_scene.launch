@@ -34,26 +34,6 @@
       <node name="move_node" pkg="project" type="move.py" output="screen"/>
   </group>
 
-  <group ns="robot2">
-      <arg name="x" default="-1"/>
-      <arg name="y" default="0"/>
-      <arg name="z" default="-0.96"/>
-      <param name="robot_description" command="xacro '$(find project)/models/diff_drive_robot/urdf/diff_drive_robot.xacro'"/>
-      <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" ></node>
-
-      <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen" >
-        <param name="publish_frequency" type="double" value="40.0" />
-      </node>
-
-      <rosparam file="$(find project)/config/diff_control.yaml" command="load"/>
-      <node name="diff_drive_robot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
-       args="-urdf -param robot_description -model diff_drive_robot1 -x $(arg x) -y $(arg y) -z $(arg z)" respawn="false"/>
-
-      <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-        output="screen" args="left_wheel_joint right_wheel_joint joint_state_controller --timeout 60"/>
-
-      <node name="move_node" pkg="project" type="move.py" output="screen"/>
-  </group>
 
 
 </launch>

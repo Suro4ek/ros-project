@@ -5,8 +5,8 @@
   left_wheel_joint:
     type: effort_controllers/JointVelocityController
     joint: left_wheel_hinge
-    pid: {p: 100, i: 0.0, d: 0.2}
+    pid: {p: 10, i: 0, d: 0.02}
   right_wheel_joint:
     type: effort_controllers/JointVelocityController
     joint: right_wheel_hinge
-    pid: {p: 100, i: 0.0, d: 0.2}
+    pid: {p: 10, i: 0, d: 0.02}
