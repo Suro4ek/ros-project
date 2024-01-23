@@ -13,12 +13,11 @@
     <arg name="debug" value="false"/>
   </include>
 
-  <group ns="robot1">
-       <arg name="x" default="0"/>
+  <group ns="413455">
+      <arg name="x" default="0"/>
       <arg name="y" default="0"/>
       <arg name="z" default="-0.96"/>
       <param name="robot_description" command="xacro '$(find project)/models/diff_drive_robot/urdf/diff_drive_robot.xacro'"/>
-      <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" ></node>
 
       <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen" >
         <param name="publish_frequency" type="double" value="40.0" />
