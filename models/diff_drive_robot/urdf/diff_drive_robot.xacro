@@ -3,9 +3,9 @@
 <robot name="robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
 
-  <xacro:include filename="$(find project)/models/diff_drive_robot/urdf/diff_drive_robot.gazebo" />
-  <xacro:include filename="$(find project)/models/diff_drive_robot/urdf/materials.xacro" />
-  <xacro:include filename="$(find project)/models/diff_drive_robot/urdf/inertial.usdf.xacro" />
+  <xacro:include filename="$(find 413455)/models/diff_drive_robot/urdf/diff_drive_robot.gazebo" />
+  <xacro:include filename="$(find 413455)/models/diff_drive_robot/urdf/materials.xacro" />
+  <xacro:include filename="$(find 413455)/models/diff_drive_robot/urdf/inertial.usdf.xacro" />
 
 
   <link name='base'>

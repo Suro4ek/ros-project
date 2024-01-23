@@ -3,34 +3,31 @@
 
   <!-- Robot pose -->
 
-  <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find project)/launch/robot_rviz_config.rviz" required="true"/> -->
+  <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find 413455)/launch/robot_rviz_config.rviz" required="true"/> -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find project)/worlds/simple_scene.world"/>
-    <arg name="paused" value="false"/>
+    <arg name="world_name" value="$(find 413455)/worlds/simple_scene.world"/>
+    <arg name="paused" value="true"/>
     <arg name="use_sim_time" value="true"/>
     <arg name="gui" value="true"/>
     <arg name="headless" value="false"/>
     <arg name="debug" value="false"/>
   </include>
-
+  <arg name="x" default="0"/>
+  <arg name="y" default="0"/>
+  <arg name="z" default="-0.96"/>
   <group ns="413455">
-      <arg name="x" default="0"/>
-      <arg name="y" default="0"/>
-      <arg name="z" default="-0.96"/>
-      <param name="robot_description" command="xacro '$(find project)/models/diff_drive_robot/urdf/diff_drive_robot.xacro'"/>
-
-      <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen" >
-        <param name="publish_frequency" type="double" value="40.0" />
+       <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen" >
+               <param name="publish_frequency" type="double" value="40.0" />
       </node>
-
-      <rosparam file="$(find project)/config/diff_control.yaml" command="load"/>
+      <param name="robot_description" command="xacro '$(find 413455)/models/diff_drive_robot/urdf/diff_drive_robot.xacro'"/>
       <node name="diff_drive_robot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
-       args="-urdf -param robot_description -model diff_drive_robot -x $(arg x) -y $(arg y) -z $(arg z)" respawn="false"/>
+           args="-urdf -param robot_description -model 413455 -x $(arg x) -y $(arg y) -z $(arg z)" respawn="false"/>
+       <rosparam file="$(find 413455)/config/diff_control.yaml" command="load"/>
 
-      <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+       <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
         output="screen" args="left_wheel_joint right_wheel_joint joint_state_controller --timeout 60"/>
 
-      <node name="move_node" pkg="project" type="move.py" output="screen"/>
+       <node name="move_node" pkg="413455" type="move.py" output="screen"/>
   </group>
 
 
